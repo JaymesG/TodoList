@@ -1,0 +1,6 @@
+{
+  "mongoConfig": {
+    "serverUrl": "mongodb://main:test123@ds123603.mlab.com:23603/",
+    "database": "takehomechallenge"
+  }
+}

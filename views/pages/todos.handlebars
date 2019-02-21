@@ -1,0 +1,82 @@
+<div class="row">
+    <div class="col-sm-12">
+
+        <h1>To-do List</h1>
+
+        <nav>
+            <form id="logout-form" action='/logout' method="post">
+                <div class="form-group">
+                    <button type="submit" class="btn btn-default">Log Out</button>
+                </div>
+            </form>
+        </nav>
+
+        <h2>Task Manager</h2>
+
+        <h3>Add Task</h3>
+
+        <form id="static-form">
+            <div class="input-group">
+                <input id="task" class="form-control" maxlength="20" type="text" placeholder="Task to remember">
+            <span class="input-group-btn">
+                    <button type="submit"class="btn btn-default">Add</button>
+            </span>
+            </div>
+        </form>
+
+        <h3>On Going Tasks</h3>
+
+        {{#each todos}}
+        <div class="panel panel-default">
+            <div class="panel-heading clearfix">
+                <div class="row">
+                    <div class="col-md-6">
+                        <button onclick="removeTodo({{this._id}})" class="btn btn-default glyphicon glyphicon-remove custom-button-width pull-left"></button>
+                        <h4 class="panel-title pull-left" style="padding-top: 7.5px; padding-left: 20px">{{this.title}}</h4>
+                    </div>
+                    <div class="col-md-6 text-right">
+                        <button onclick="completeTodo({{this._id}})" class="btn btn-default glyphicon glyphicon-ok custom-button-width .navbar-right"></button>
+                    </div>
+                </div>
+            </div>
+        </div>
+        {{/each}}
+
+
+        <h3>Completed Tasks</h3>
+        {{#each completed}}
+        <div class="panel panel-success">
+            <div class="panel-heading clearfix">
+                <h4 class="panel-title pull-left">{{this.title}}</h4>
+            </div>
+        </div>
+        {{/each}}
+    </div>
+</div>
+<script src="https://code.jquery.com/jquery-2.2.4.min.js" integrity="sha256-BbhdlvQf/xTY9gja0Dq3HiwQF8LaCRTXxZKRutelT44="
+    crossorigin="anonymous"></script>
+<script type="text/javascript" src="js/functionality.js"></script>
+
+<script>
+    function removeTodo(id) {
+        $.ajax({
+            method: "GET",
+            url: '/delete/' + id,
+            success: function () {
+                location.reload(true);
+            }
+        });
+    }
+
+    function completeTodo(id) {
+        $.ajax({
+            method: "GET",
+            contentType: 'application/json',
+            url: '/complete/' + id,
+            success: function () {
+                location.reload(true);
+            }
+        });
+    }
+    
+</script>
